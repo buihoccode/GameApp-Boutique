@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.RoleDTO;
+
 import com.example.demo.entities.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

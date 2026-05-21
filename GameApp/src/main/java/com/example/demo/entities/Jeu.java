@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import java.time.LocalDateTime;
@@ -16,6 +17,9 @@ public class Jeu {
     private String titre;
     private String plateforme;
     
+    //use wrappers for REST validation safety
+    // in case there's no price prix -> null
+    // trigger validation error @NotNull instead of 0.0
     private Double prix; 
     private Integer nbLicence; 
     
@@ -31,6 +35,7 @@ public class Jeu {
     @ManyToOne
     private Studio studio;
     
+    //force Hibernate to load 'Genre' tags, if not MapStruct will crash while build DTO
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "jeu_genre",
@@ -39,6 +44,7 @@ public class Jeu {
     )
     private List<Genre> genres;
 
+    //fallback
     @PrePersist
     protected void onCreate() {
         this.dateAjout = LocalDateTime.now();
